@@ -1,5 +1,5 @@
 {
-  "name": "tech-trends-chatbot-frontend",
+  "name": "aac-ai-agent-frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,11 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@microlink/react": "^5.5.23",
     "eventsource-parser": "^2.0.1",
     "immer": "^10.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-markdown": "^9.0.1",
+    "react-paystack": "^6.0.0",
+    "react-router-dom": "^7.1.5",
+    "styled-components": "^6.1.15",
     "use-immer": "^0.10.0"
   },
   "devDependencies": {

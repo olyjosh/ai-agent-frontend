@@ -11,3 +11,8 @@ export async function* parseSSEStream(stream) {
     } 
   }
 }
+
+export function extractUrl(str){
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  return str.match(urlRegex);
+}

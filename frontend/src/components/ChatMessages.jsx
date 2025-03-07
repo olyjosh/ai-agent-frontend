@@ -1,4 +1,6 @@
 import Markdown from 'react-markdown';
+import MicroLink from '@microlink/react';
+import { extractUrl } from '@/utils';
 import useAutoScroll from '@/hooks/useAutoScroll';
 import Spinner from '@/components/Spinner';
 import userIcon from '@/assets/images/user.svg';
@@ -9,7 +11,7 @@ function ChatMessages({ messages, isLoading }) {
   
   return (
     <div ref={scrollContentRef} className='grow space-y-4'>
-      {messages.map(({ role, content, loading, error }, idx) => (
+      {messages.map(({ role, content, loading, error, url = extractUrl(content) }, idx) => (
         <div key={idx} className={`flex items-start gap-4 py-4 px-3 rounded-xl ${role === 'user' ? 'bg-primary-blue/10' : ''}`}>
           {role === 'user' && (
             <img
@@ -25,6 +27,11 @@ function ChatMessages({ messages, isLoading }) {
                   ? <Markdown>{content}</Markdown>
                   : <div className='whitespace-pre-line'>{content}</div>
               }
+                        
+              { 
+                url && <MicroLink url={url} size="large" />
+              }
+               
             </div>
             {error && (
               <div className={`flex items-center gap-1 text-sm text-error-red ${content && 'mt-2'}`}>
