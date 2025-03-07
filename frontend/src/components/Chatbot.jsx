@@ -39,8 +39,6 @@ function Chatbot() {
     }
   }
 
-  let content = 'I am African Action Congress AI. I can help you with becoming member of the party, print memeber ship card, pay dues and donation, tell you more about local events more and even more https://www.youtube.com/watch?v=zza-m8jbr24'
-
   return (
     <div className='relative grow flex flex-col gap-6 pt-6'>
       {messages.length === 0 && (
@@ -65,6 +63,7 @@ function Chatbot() {
         isLoading={isLoading}
         setNewMessage={setNewMessage}
         submitNewMessage={submitNewMessage}
+        messages={messages}
       />
     </div>
   );

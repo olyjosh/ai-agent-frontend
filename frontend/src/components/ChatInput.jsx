@@ -1,7 +1,7 @@
 import useAutosize from '@/hooks/useAutosize';
 import sendIcon from '@/assets/images/send.svg';
 
-function ChatInput({ newMessage, isLoading, setNewMessage, submitNewMessage }) {
+function ChatInput({ newMessage, isLoading, setNewMessage, submitNewMessage, messages }) {
   const textareaRef = useAutosize(newMessage);
 
   function handleKeyDown(e) {
@@ -10,9 +10,25 @@ function ChatInput({ newMessage, isLoading, setNewMessage, submitNewMessage }) {
       submitNewMessage();
     }
   }
+
+  function submitQuickMessage(str) {
+    setNewMessage(str);
+    submitNewMessage();
+  }
   
   return(
     <div className='sticky bottom-0 bg-white py-4'>
+      
+      { // if the user has not typed anything yet or ChatBot.messages is empty, show quick message buttons
+        newMessage === '' && messages.length == 0 && (
+          <div className='p-1.5 rounded-3xl z-50 font-mono origin-bottom animate-chat duration-400 space-x-2 flex justify-center gap-2'>
+            <button onClick={ ()=> submitQuickMessage('I want to join the party')} className='bg-primary-blue text-white py-2 px-4 rounded-3xl'>I want to join the party</button>
+            <button onClick={ ()=> submitQuickMessage('I want to pay my dues')} className='bg-primary-blue text-white py-2 px-4 rounded-3xl'>I want to pay my dues</button>
+            <button onClick={ ()=> submitQuickMessage('I want to upload my profile picture')} className='bg-primary-blue text-white py-2 px-4 rounded-3xl'>I want to upload my profile picture</button>
+          </div>
+        )
+      }
+
       <div className='p-1.5 bg-primary-blue/35 rounded-3xl z-50 font-mono origin-bottom animate-chat duration-400'>
         <div className='pr-0.5 bg-white relative shrink-0 rounded-3xl overflow-hidden ring-primary-blue ring-1 focus-within:ring-2 transition-all'>
           <textarea
