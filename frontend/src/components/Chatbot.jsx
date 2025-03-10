@@ -16,7 +16,7 @@ function Chatbot() {
     if (!trimmedMessage || isLoading) return;
 
     setMessages(draft => [...draft,
-      { role: 'user', content: trimmedMessage },
+      { role: 'user', content: trimmedMessage, type: 'text' },
       { role: 'assistant', content: '', sources: [], loading: true }
     ]);
     setNewMessage('');
@@ -37,6 +37,34 @@ function Chatbot() {
         draft[draft.length - 1].error = true;
       });
     }
+  }
+
+  async function submitPhoto(file) {
+    if (isLoading) return;
+
+    setMessages(draft => [...draft,
+      { role: 'user', content: file, type: 'photo' },
+      { role: 'assistant', content: '', sources: [], loading: true }
+    ]);
+    console.log('FILE>>>>', file)
+    setNewMessage('');
+
+    let chatIdOrNew = Date.now()//chatId;
+    // try {
+    //   const res = await api.sendChatMessage(chatIdOrNew, trimmedMessage);
+    //   setMessages(draft => {
+    //     draft[draft.length - 1].content += res.reply;
+    //   });
+    //   setMessages(draft => {
+    //     draft[draft.length - 1].loading = false;
+    //   });
+    // } catch (err) {
+    //   console.log(err);
+    //   setMessages(draft => {
+    //     draft[draft.length - 1].loading = false;
+    //     draft[draft.length - 1].error = true;
+    //   });
+    // }
   }
 
   return (
@@ -63,6 +91,7 @@ function Chatbot() {
         isLoading={isLoading}
         setNewMessage={setNewMessage}
         submitNewMessage={submitNewMessage}
+        submitPhoto={submitPhoto}
         messages={messages}
       />
     </div>

@@ -5,13 +5,14 @@ import useAutoScroll from '@/hooks/useAutoScroll';
 import Spinner from '@/components/Spinner';
 import userIcon from '@/assets/images/user.svg';
 import errorIcon from '@/assets/images/error.svg';
+import TypeWriter from './TypeWriter';
 
 function ChatMessages({ messages, isLoading }) {
   const scrollContentRef = useAutoScroll(isLoading);
   
   return (
     <div ref={scrollContentRef} className='grow space-y-4'>
-      {messages.map(({ role, content, loading, error, url = extractUrl(content) }, idx) => (
+      {messages.map(({ role, content, type, loading, error, url = type == 'text' ? extractUrl(content) : undefined }, idx) => (
         <div key={idx} className={`flex items-start gap-4 py-4 px-3 rounded-xl ${role === 'user' ? 'bg-primary-blue/10' : ''}`}>
           {role === 'user' && (
             <img
@@ -24,8 +25,11 @@ function ChatMessages({ messages, isLoading }) {
             <div className='markdown-container'>
               {(loading && !content) ? <Spinner />
                 : (role === 'assistant')
-                  ? <Markdown>{content}</Markdown>
-                  : <div className='whitespace-pre-line'>{content}</div>
+                  ? <TypeWriter text={content} speed={20} />
+                  // <Markdown>{content}</Markdown>
+                  : 
+                  <UserMessage content={content} type={type} />
+                  // <div className='whitespace-pre-line'>{content}</div>
               }
                         
               { 
@@ -42,6 +46,22 @@ function ChatMessages({ messages, isLoading }) {
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+
+function UserMessage({ content, type }) {
+  return (
+    // <div className='flex items-start gap-4 py-4 px-3 rounded-xl bg-primary-blue/10'>
+    <div className=''>
+      {/* <img
+        className='h-[26px] w-[26px] shrink-0'
+        src={userIcon}
+        alt='user'
+      /> */}
+      { type == 'text' ? <div className='whitespace-pre-line'>{content}</div> : <div>
+        <Spinner /><img src={content} alt='user uploaded image' />
+      </div> }
     </div>
   );
 }

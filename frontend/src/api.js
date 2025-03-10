@@ -12,19 +12,7 @@ async function createChat() {
   return data;
 }
 
-// async function sendChatMessage(chatId, message) {
-//   const res = await fetch(BASE_URL + `/agent/chats/${chatId}`, {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify({ prompt: message })
-//   });
-//   if (!res.ok) {
-//     return Promise.reject({ status: res.status, data: await res.json() });
-//   }
-//   return res.body;
-// }
 async function sendChatMessage(chatId, message) {  
-  // const res = await fetch(BASE_URL + `/agent/chats/${chatId}`, {
   const res = await fetch(BASE_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json'  },
@@ -33,12 +21,43 @@ async function sendChatMessage(chatId, message) {
   if (!res.ok) {
     return Promise.reject({ status: res.status, data: await res.json() });
   }
-  //console.log(await res.json());
-  
-  // return res.body;
+
   return res.json()
 }
 
+async function getPhotoPresignedUrl(email, op) {  
+  const res = await fetch(`https://dscstewbek.execute-api.us-east-1.amazonaws.com/dev/aac-ai-image-endpoint?email=${email}&op=${op ? op : "download"}`, {
+    method: "GET"
+  });
+
+  if (!res.ok) {
+    return Promise.reject({ status: res.status, data: await res.json() });
+  }
+
+  return res.json()
+}
+
+async function putProfilePhoto(url, file) {  
+  const formData = new FormData();
+
+  const res = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-type": file.type
+      },
+      body: file,
+  });
+
+  if (!res.ok) {
+    return Promise.reject({ status: res.status, data: await res.json() });
+  }
+
+  return {'message': 'success'}
+}
+
 export default {
-  createChat, sendChatMessage
+  createChat, 
+  getPhotoPresignedUrl,
+  putProfilePhoto,
+  sendChatMessage
 };
