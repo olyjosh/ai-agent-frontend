@@ -2,6 +2,7 @@ import useAutosize from '@/hooks/useAutosize';
 import sendIcon from '@/assets/images/send.svg';
 import { useState } from 'react';
 import PhotoUploadDialog from './PhotoUploadDialog';
+import React from 'react';
 
 function ChatInput({ newMessage, isLoading, setNewMessage, submitNewMessage, submitPhoto, messages }) {
   const textareaRef = useAutosize(newMessage);

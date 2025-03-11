@@ -1,3 +1,5 @@
+import React from "react";
+
 function Spinner() {
   return (
     <div className='relative h-12 w-12'>

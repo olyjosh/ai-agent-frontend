@@ -6,6 +6,7 @@ import {
 import AIAgentViewPage from "./pages/AIAgentViewPage";
 import PayemntPage from "./pages/PaymentPage";
 import DonationPage from "./pages/DonationPage";
+import React from "react";
 
 function App() {
   return (

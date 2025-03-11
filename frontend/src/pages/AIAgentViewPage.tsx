@@ -1,6 +1,7 @@
 import Chatbot from '@/components/Chatbot';
 import logo from '@/assets/images/aac-logo.png';
 import { useEffect } from 'react';
+import React from 'react';
 
 function AIAgentView() {
 

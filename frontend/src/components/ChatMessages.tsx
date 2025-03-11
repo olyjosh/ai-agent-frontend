@@ -6,6 +6,7 @@ import Spinner from '@/components/Spinner';
 import userIcon from '@/assets/images/user.svg';
 import errorIcon from '@/assets/images/error.svg';
 import TypeWriter from './TypeWriter';
+import React from 'react';
 
 function ChatMessages({ messages, isLoading }) {
   const scrollContentRef = useAutoScroll(isLoading);
